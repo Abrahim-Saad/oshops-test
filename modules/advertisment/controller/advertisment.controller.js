@@ -77,6 +77,7 @@ const updateAdvertisment = async (req, res) => {
 }
 
 const deleteAdvertisment = async (req, res) => {
+    console.log(req);
     const { id } = req.params;
     const advertisment = await Advertisment.findById({ _id: id }).catch(error => error =>{ return });
     if (!advertisment) {
