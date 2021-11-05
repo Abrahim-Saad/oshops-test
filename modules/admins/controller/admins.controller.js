@@ -40,7 +40,7 @@ const adminSignIn = async (req, res) => {
             }
         }
     } catch (error) {
-        res.json({ status: 500, message: "Something went wrong" })
+        res.json({ status: 500, message: "Something went wrong"  + error})
     }
 }
 
