@@ -5,11 +5,12 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "npm start app.js"
+    "start" : "nodemon app.js"
   },
   "author": "Sherif Ahmed Abdelmoniem Tawfik",
   "license": "ISC",
   "dependencies": {
+    "nodemon": "^2.0.14",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
