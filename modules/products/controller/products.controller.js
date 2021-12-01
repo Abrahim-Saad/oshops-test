@@ -243,7 +243,7 @@ const productsByStoreAndCategory = async (req, res) => {
 const productSearch = async (req, res) => {
     let { search } = req.query;
     try {
-        const data = await Product.find({ productName: { $regex: search, $options: 'i' } }).limit(10);
+        const data = await Product.find({ productName: { $regex: search, $options: 'i' } }).limit(10).sort({ price : 1});
         res.send({ status: 200, message: "Success", data });
     } catch (error) {
         res.json({ status: 500, message: "Something went wrong" })
