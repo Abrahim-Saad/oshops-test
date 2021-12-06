@@ -15,7 +15,7 @@ const addAdvertisment = async (req, res) => {
                 const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
                 const buffer = Buffer.from(advertismentImageURL.data, "base64");
                 fs.writeFileSync(path.join(uploadFolder, uniqueSuffix + '-' + advertismentImageURL.name), buffer);
-                let newAdvertisment = new Advertisment({ title: title, advertismentImageURL: path.join('uploads/advertisment', uniqueSuffix + '-' + advertismentImageURL.name), isActive: isActive });
+                let newAdvertisment = new Advertisment({ title: title, advertismentImageURL: path.join('uploads/advertisements', uniqueSuffix + '-' + advertismentImageURL.name), isActive: isActive });
                 await newAdvertisment.save();
                 res.send({status:200, message: "Success" });
             }
@@ -48,7 +48,7 @@ const updateAdvertisment = async (req, res) => {
             const buffer = Buffer.from(advertismentImageURL.data, "base64");
             fs.writeFileSync(path.join(uploadFolder, uniqueSuffix + '-' + advertismentImageURL.name), buffer);
             fs.unlinkSync(advertisment.advertismentImageURL);
-            await Advertisment.findByIdAndUpdate({ _id: id }, { title, advertismentImageURL: path.join('uploads/advertisment', uniqueSuffix + '-' + advertismentImageURL.name), isActive : isActive })
+            await Advertisment.findByIdAndUpdate({ _id: id }, { title, advertismentImageURL: path.join('uploads/advertisements', uniqueSuffix + '-' + advertismentImageURL.name), isActive : isActive })
                 .then(re => {
                     res.send({status:200, message: "Success" });
                 }) 
