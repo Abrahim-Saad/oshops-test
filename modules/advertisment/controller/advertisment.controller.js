@@ -1,7 +1,7 @@
 const Advertisment = require("../model/advertisment.model");
 const fs = require('fs');
 const path = require('path');
-const uploadFolder = path.join(__dirname, "../../../uploads/advertisment")
+const uploadFolder = path.join(__dirname, "../../../uploads/advertisements")
 
 const addAdvertisment = async (req, res) => {
     const { title, advertismentImageURL, isActive } = req.body;
