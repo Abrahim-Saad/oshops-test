@@ -75,7 +75,11 @@ const deleteProduct = async (req, res) => {
         res.json({ status: 400, message: "Please enter a valid id" })
     }
     else {
-        fs.unlinkSync(product.productImageURL);
+        let isUploaded = product.productImageURL.split("/")[0];
+        if(isUploaded == "uploads")
+        {
+            fs.unlinkSync(product.productImageURL);
+        }
         await Product.findByIdAndDelete({ _id: id })
             .then(re => res.send({ status: 200, message: "Success" }))
             .catch(error => {
