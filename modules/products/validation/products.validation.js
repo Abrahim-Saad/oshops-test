@@ -41,7 +41,7 @@ module.exports = {
             productName: joi.string().optional().messages({
                 "string.empty": "You have to enter product name"
             }),
-            productImageURL: joi.object().required().messages({
+            productImageURL: joi.object().optional().messages({
                 "object.empty": "You have to enter product image",
                 "any.required": "You have to enter product image"
             }),
