@@ -36,9 +36,6 @@ const updateAdvertisment = async (req, res) => {
     if (!advertisment) {
         res.json({status:400, message: "Please enter a valid id" })
     }
-    else if (titleTaken && advertisment != advertisment.title) {
-        res.json({status:400, message: "This advertisment already exists" })
-    }
     else if (!advertisment && titleTaken) {
         res.json({status:400, message: "Please enter a valid id" })
     }
