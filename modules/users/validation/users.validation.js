@@ -88,5 +88,36 @@ module.exports = {
                 "any.required": "You have to enter an address"
             })
         })
+    },
+    sendOrderValidation: {
+        body: joi.object().required().keys({
+            storeEmail: joi.string().empty('').email({ minDomainSegments: 2 }).empty('').required().messages({
+                "string.email": "Please enter a valid store email",
+                "string.empty": "You have to enter store email",
+                "any.required": "You have to enter store email"
+            }),
+            userOrder: joi.alternatives().required().try(
+                joi.object().required().messages({
+                    "object.empty": "You have to enter user order",
+                    "any.required": "You have to enter at least one user order"
+                })
+                , joi.array().min(1).required().items(joi.object().required().messages({
+                    "object.empty": "You have to enter user order",
+                    "any.required": "You have to enter at least one user order"
+                })).messages({
+                    "array.min": "You have to enter at least one user order"
+                })
+            ).messages({
+                "any.required": "You have to enter at least one user order"
+            }),
+            totalPrice: joi.number().required().messages({
+                "any.required": "You have to enter total price",
+                "number.base": "please enter a valid price"
+            }),
+            phoneNumber:  joi.number().required().messages({
+                "number.base": "Please enter a valid phone number",
+                "any.required": "You have to enter a phone number"
+            })
+        })
     }
 }
