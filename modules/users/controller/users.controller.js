@@ -137,6 +137,89 @@ const getCurrentUser = async (req, res) => {
         .catch(error => res.status(500).json({ message: "Something went wrong" }))
 }
 
+
+const sendOrder = async (req, res) => {
+    const { storeEmail, userOrder, totalPrice, phoneNumber } = req.body;
+    let order = ``;
+    const userId = req.user._id;
+    const user = await User.findOne({ _id: userId });
+    try{
+        console.log(userOrder.length);
+        if(userOrder.length == undefined)
+        {
+            order = order + `<tr>
+            <td style="border: 1px solid black; padding: 4px;">${userOrder.productName}</td>
+            <td style="border: 1px solid black; padding: 4px;">${userOrder.productQuantity}</td>
+            <td style="border: 1px solid black; padding: 4px;">${userOrder.productPrice} <span>AED</span></td>
+            </tr>`
+        }
+        for (let i = 0; i < userOrder.length; i++) {
+            order = order + `<tr>
+            <td style="border: 1px solid black; padding: 4px;">${userOrder[i].productName}</td>
+            <td style="border: 1px solid black; padding: 4px;">${userOrder[i].productQuantity}</td>
+            <td style="border: 1px solid black; padding: 4px;">${userOrder[i].productPrice} <span>AED</span></td>
+        </tr>`
+        }
+        if (user.address == null) {
+            res.status(400).json({ message: "Please add an address before sending an order" });
+        }
+        else {
+            let transporter = nodemailer.createTransport({
+                host: "o-shop.online",
+                secure: true,
+                auth: {
+                    user: "o-shop@o-shop.online",
+                    pass: "Moh555$fo",
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+            await transporter.sendMail({
+                from: '<o-shop@o-shop.online>',
+                to: `${storeEmail}`,
+                subject: "OShops Order",
+                html: `<div style="background-color: rgba(236, 236, 236); padding: 8px;">
+                <h1 style="text-align: center; font-weight: bold;">OShops Order</h1>
+                <p style="font-size: 21px; font-weight: 500;"><span style="font-weight: bolder; font-size: 23px;">Name : </span>
+                    ${user.firstName} ${user.lastName}</p>
+                <p style="font-size: 21px; font-weight: 500;"><span style="font-weight: bolder; font-size: 23px;">Email : </span>
+                    ${user.email} </p>
+                <p style="font-size: 21px; font-weight: 500;"><span style="font-weight: bolder; font-size: 23px;">Address : </span>
+                    ${user.address}</p>
+                <p style="font-size: 21px; font-weight: 500;"><span style="font-weight: bolder; font-size: 23px;">Phone Number :
+                    </span> ${phoneNumber}</p>
+                <p style="font-size: 21px; font-weight: 500;"><span style="font-weight: bolder; font-size: 23px;">Order : </span>
+                </p>
+                <table
+                    style="text-align: center; border-collapse: collapse; padding: 3px; border: 1px solid black; width: 50%; text-align: center;">
+                    <thead>
+                        <tr style="border: 1px solid black;">
+                            <th style="border: 1px solid black; padding: 4px;">Product</th>
+                            <th style="border: 1px solid black; padding: 4px;">Quantity</th>
+                            <th style="border: 1px solid black; padding: 4px;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${order}
+                    </tbody>
+                </table>
+            
+                <p style="font-size: 21px; font-weight: 500;"><span style="font-weight: bolder; font-size: 23px;">Total price :
+                    </span> ${totalPrice} <span>AED</span></p>
+            </div>`
+            },
+            (error, infor) => {
+                if (error) res.status(500).json({ message: "Something went wrong" });
+                if (infor) res.status(200).send({ message: "Success"});
+            });
+        }
+    } catch(error){
+        res.status(500).json({ message: "Something went wrong" });
+    }
+}
+
+
 module.exports = {
     signUp,
     userSignIn,
@@ -145,5 +228,6 @@ module.exports = {
     addAddress,
     removeAddress,
     getAllUsers,
-    getCurrentUser
+    getCurrentUser,
+    sendOrder
 }
