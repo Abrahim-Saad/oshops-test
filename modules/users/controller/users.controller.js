@@ -2,6 +2,7 @@ const User = require("../model/users.model");
 const bcrypt = require("bcrypt");
 const saltRounds = 5;
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const fs = require('fs');
 const path = require('path');
 const uploadFolder = path.join(__dirname, "../../../uploads/users");
