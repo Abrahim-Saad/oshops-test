@@ -24,8 +24,10 @@ module.exports = {
                 })).messages({
                     "any.required": "You have to enter at least one telephone number"
                 }),
-            website: joi.string().uri().empty('').optional().allow(null).default(null).messages({
-                "string.uri": "You should enter a valid URI"
+            email: joi.string().empty('').email({ minDomainSegments: 2 }).empty('').required().messages({
+                "string.email": "Please enter a valid store email",
+                "string.empty": "You have to enter store email",
+                "any.required": "You have to enter store email"
             }),
             storeCategories: joi.alternatives().required().try(
                 joi.string().empty('').required().messages({
@@ -62,8 +64,9 @@ module.exports = {
                 })).messages({
                     "array.min": "You have to enter at least one telephone number"
                 })),
-            website: joi.string().uri().optional().allow(null).default(null).messages({
-                "string.uri": "You should enter a valid URI"
+            email: joi.string().empty('').email({ minDomainSegments: 2 }).empty('').optional().messages({
+                "string.email": "Please enter a valid email",
+                "string.empty": "You have to enter email"
             }),
             storeCategories: joi.alternatives().optional().try(
                 joi.string().empty('').optional().messages({
