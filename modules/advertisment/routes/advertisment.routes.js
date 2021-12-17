@@ -10,7 +10,7 @@ app.post("/addAdvertisment", [isAuthorized(ADD_ADVERTISMENT),validator(addAdvert
 app.put("/updateAdvertisment/:id", [isAuthorized(UPDATE_ADVERTISMENT), validator(updateAdvertismentValidation)], updateAdvertisment);
 app.delete("/deleteAdvertisment/:id", [isAuthorized(DELETE_ADVERTISMENT)], deleteAdvertisment);
 app.get("/getAllAdvertisments", [isAuthorized(GET_ALL_ADVERTISMENTS)], getAllAdvertisments);
-app.get("/getAllActiveAdvertisments", [isAuthorized(GET_ALL_ACTIVE_ADVERTISMENTS)], getAllActiveAdvertisments);
+app.get("/getAllActiveAdvertisments", getAllActiveAdvertisments);
 app.get("/getAdvertismentById/:id", [isAuthorized(GET_ADVERTISMENTS_BY_ID)], getAdvertismentById);
 
 module.exports = app;
