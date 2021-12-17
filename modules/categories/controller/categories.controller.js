@@ -1,7 +1,7 @@
 const Category = require("../model/categories.model");
 const fs = require('fs');
 const path = require('path');
-const uploadFolder = path.join(__dirname, "../../../uploads/categories")
+const uploadFolder = path.join(__dirname, "https://o-shop.online/uploads")
 
 const addCategory = async (req, res) => {
     const { categoryName, categoryImageURL } = req.body;
