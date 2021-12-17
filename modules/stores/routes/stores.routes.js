@@ -9,9 +9,9 @@ const { ADD_STORE, UPDATE_STORE, DELETE_STORE, GET_ALL_STORE, GET_STORE_CATEGORI
 app.post("/addStore", [isAuthorized(ADD_STORE), validator(addStoreValidation)], addStore);
 app.put("/updateStore/:id", [isAuthorized(UPDATE_STORE), validator(updateStoreValidation)], updateStore);
 app.delete("/deleteStore/:id", [isAuthorized(DELETE_STORE)], deleteStore);
-app.get("/getAllStores", [isAuthorized(GET_ALL_STORE)], getAllStores);
-app.get("/getStoreCategories/:id", [isAuthorized(GET_STORE_CATEGORIES)], getStoreCategories);
-app.get("/getStoreById/:id", [isAuthorized(GET_STORE_BY_ID)], getStoreById);
+app.get("/getAllStores", getAllStores);
+app.get("/getStoreCategories/:id", getStoreCategories);
+app.get("/getStoreById/:id", getStoreById);
 app.get("/recentStores", [isAuthorized(RECENT_STORES)], recentStores);
 app.get("/countUsersCategoriesStores", [isAuthorized(COUNT_USERS_CATEGORIES_STORES)], countUsersCategoriesStores);
 
