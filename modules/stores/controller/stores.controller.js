@@ -6,7 +6,7 @@ const path = require('path');
 const uploadFolder = path.join(__dirname, "../../../uploads/stores");
 
 const addStore = async (req, res) => {
-    const { storeName, telephoneNumber, website, storeCategories, storeLogoURL } = req.body;
+    const { storeName, telephoneNumber, email, storeCategories, storeLogoURL } = req.body;
     try {
         if (storeLogoURL) {
             const store = await Store.findOne({ storeName: storeName });
@@ -18,7 +18,7 @@ const addStore = async (req, res) => {
                 const buffer = Buffer.from(storeLogoURL.data, "base64");
                 fs.writeFileSync(path.join(uploadFolder, uniqueSuffix + '-' + storeLogoURL.name), buffer);
                 let newStore = new Store({
-                    storeName, telephoneNumber, website, storeCategories,
+                    storeName, telephoneNumber, email, storeCategories,
                     storeLogoURL: path.join('uploads/stores', uniqueSuffix + '-' + storeLogoURL.name)
                 });
                 await newStore.save();
@@ -36,7 +36,7 @@ const addStore = async (req, res) => {
 }
 
 const updateStore = async (req, res) => {
-    const { storeName, telephoneNumber, website, storeCategories, storeLogoURL } = req.body;
+    const { storeName, telephoneNumber, email, storeCategories, storeLogoURL } = req.body;
     const { id } = req.params;
 
     // console.log(storeName)
@@ -57,7 +57,7 @@ const updateStore = async (req, res) => {
             const buffer = Buffer.from(storeLogoURL.data, "base64");
             fs.writeFileSync(path.join(uploadFolder, uniqueSuffix + '-' + storeLogoURL.name), buffer);
             await Store.findByIdAndUpdate({ _id: id }, {
-                storeName, telephoneNumber, website, storeCategories,
+                storeName, telephoneNumber, email, storeCategories,
                 storeLogoURL: path.join('uploads/stores', uniqueSuffix + '-' + storeLogoURL.name)
             })
                 .then(re => {
@@ -74,7 +74,7 @@ const updateStore = async (req, res) => {
         }
         else if (!storeLogoURL) {
             await Store.findByIdAndUpdate({ _id: id }, {
-                storeName, telephoneNumber, website, storeCategories,
+                storeName, telephoneNumber, email, storeCategories,
                 storeLogoURL: store.storeLogoURL
             })
                 .then(re => res.send({ status: 200, message: "Success" }))
