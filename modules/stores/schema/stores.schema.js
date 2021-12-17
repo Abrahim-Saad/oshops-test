@@ -13,9 +13,9 @@ const storeSchema = new mongoose.Schema({
         type: Number,
         required: true,
     }],
-    website: {
-        type: String, 
-        default: null
+    email: {
+        type: String,
+        required: true,
     },
     storeCategories: [{
         type: mongoose.Schema.Types.ObjectId,
